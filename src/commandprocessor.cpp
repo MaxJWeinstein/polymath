@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <regex>
@@ -6,6 +7,9 @@
 
 Result CommandProcessor::processCommand(std::string command)
 {
+    if (this->debug) {
+        std::cout << "command: " << command << std::endl;
+    }
     std::string addition_pattern = "([0-9]+)\\s*\\+\\s*([0-9]+)";
     std::regex addition_regex(addition_pattern);
     std::smatch command_match;

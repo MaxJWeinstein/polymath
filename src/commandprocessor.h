@@ -8,6 +8,11 @@
 class CommandProcessor
 {
 public:
+    const bool debug;
+
+    CommandProcessor() : debug(true) {};
+    CommandProcessor(bool debugMode) : debug(debugMode) {};
+
     Result processCommand(std::string command);
 };
 

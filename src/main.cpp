@@ -6,21 +6,20 @@
 
 int main()
 {
-    std::cout << "Currently just a calculator" << std::endl;
-
-    std::string command = "5 + 4";
-    std::cout << "command: " << command << std::endl;
+    std::string commands[] = {"5 + 4"};
 
     CommandProcessor commandProcessor{};
 
-    Result result = commandProcessor.processCommand(command);
+    for (auto command : commands) {
+        Result result = commandProcessor.processCommand(command);
 
-    switch (result.tag) {
-        case Result::INT:
-            std::cout << "result: " << result.wholeNum << std::endl;
-            break;
-        case Result::ERROR:
-            std::cout << "error encountered: " << result.errorMsg << std::endl;
-            break;
+        switch (result.tag) {
+            case Result::INT:
+                std::cout << "result: " << result.wholeNum << std::endl;
+                break;
+            case Result::ERROR:
+                std::cout << "error encountered: " << result.errorMsg << std::endl;
+                break;
+        }
     }
 }
