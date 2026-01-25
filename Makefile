@@ -3,29 +3,26 @@ CXX=g++
 CPPFLAGS=-std=c++23 -g
 LDFLAGS=-g
 
+TARGET=mathtools
+
 SRCDIR=src
 SRCS=$(shell find src -name "*.cpp")
 
+INCLUDEDIR=include
+
 BUILDDIR=build
-OBJS=$(subst .cpp,.o,$(SRCS))
-#OBJS=$(patsubst $(SRCDIR)/%, $(BUILDDIR)/%, $(OBJFILES))
+OBJS=$(patsubst $(SRCDIR)/%.cpp, $(BUILDDIR)/%.o, $(SRCS))
 
-all: mathtools
+all: $(TARGET)
 
-mathtools: $(OBJS)
-	$(CXX) $(CPPFLAGS) $(LDFLAGS) -o mathtools $(OBJS) $(LDLIBS)
+$(TARGET): $(OBJS)
+	$(CXX) $(CPPFLAGS) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 
-depend: .depend
-
-.depend: $(SRCS)
-	rm -f ./.depend
-	$(CXX) $(CPPFLAGS) -MM $^ >> ./.depend
+$(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.cpp
+	$(CXX) $(CPPFLAGS) -c $^ -o $@ -I$(INCLUDEDIR)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(TARGET)
 
-distclean: clean
-	rm -f *~ .depend
 
-include .depend
-
+.PHONY: all clean

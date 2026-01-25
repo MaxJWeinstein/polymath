@@ -1,5 +1,0 @@
-result.o: src/result.cpp src/result.h
-commandprocessor.o: src/commandprocessor.cpp src/commandprocessor.h \
-  src/result.h
-main.o: src/main.cpp src/commandprocessor.h src/result.h
-number.o: src/number.cpp src/number.h

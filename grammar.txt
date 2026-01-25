@@ -1,0 +1,59 @@
+# '{...}' means "zero or more times"
+# '[...]' either means "optional" or refers to a character set
+
+Start ::= Program
+
+Program ::= StatementList
+
+StatementList ::= Statement ['\n' StatementList]
+
+Statement ::= FunctionDef | NamedValueDef | SymVarDef | Expression
+
+FunctionDef ::= 'func' Identifier '(' [ParameterList] ')' '=' Expression
+
+ParameterList ::= Identifier {',' Identifier}
+
+NamedValueDef ::= 'let' Identifier '=' Expression
+
+SymVar-Def ::= 'var' Identifier [':' Domain]
+
+# Now for the meat of it all: expressions
+Expression ::= BuiltInCommand | Term {('+'|'-') Term}
+
+Term ::= Factor {('*'|'/') Factor}
+
+Factor ::= ['-'] SubFactor ['^' Factor]
+
+SubFactor ::= '(' Expression ')' | FunctionCall | NumberLiteral | Identifier
+
+FunctionCall ::= Identifier '(' [ArgumentList] ')'
+
+ArgumentList ::= Args [',' Environment] | Environment
+
+Args ::= Expression {',' Expression}
+
+Environment ::= KeyValPair {',' KeyValPair}
+
+KeyValPair ::= Identifier '=' Expression
+
+Identifier ::= [a-zA-Z_\] {[a-zA-Z_0-9]}
+
+NumberLiteral ::= IntegerLiteral | FloatLiteral
+
+IntegerLiteral ::= ['-'] [0-9]+
+
+FloatLiteral ::= ['-'] {[0-9]} '.' [0-9]+
+
+# Some of these commands require defining polynomials
+BuiltInCommand ::= Differentiate | FindPolynomialRoots | FactorPolynomial | SolveEqn
+
+Differentiate ::= 'diff' ['{' Expression '}'] ['/' Identifier] Expression
+
+FindPolynomialRoots ::= 'roots' ['{' Domain '}'] Expression
+
+FactorPolynomial ::= 'factor' ['{' Domain '}'] Expression
+
+SolveEqn ::= 'solve' ['/' Identifier ] Expression '=' Expression
+
+# Would be cool to flesh out. For now it's simple
+Domain ::= 'R' | 'Z' | 'C' | 'Q' | 'N'
