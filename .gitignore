@@ -1,5 +1,5 @@
 .DS_Store
-**/*.o
 .vscode/**
-./mathtools
-build/**
+build/
+.cache/
+compile_commands.json
