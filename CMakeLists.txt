@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(math-tools
     VERSION 0.1.0
-    LANGUAGES CXX
+    LANGUAGES CXX C
 )
 
 # Defaults
@@ -22,13 +22,31 @@ target_compile_options(project_warnings INTERFACE
     -Wall -Wextra -Wpedantic -Wshadow -Wconversion
 )
 
+# Libraries
+
+include(FetchContent)
+
+FetchContent_Declare(
+    isocline
+    GIT_REPOSITORY https://github.com/daanx/isocline.git
+    GIT_TAG        main
+)
+set(IC_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(isocline)
+
+add_subdirectory(lib)  # math_tools_core
+
 add_executable(math-tools
     src/main.cpp
-    src/app.cpp
+    src/cli/repl.cpp
 )
 
 target_include_directories(math-tools PRIVATE include)
-target_link_libraries(math-tools PRIVATE project_warnings)
+target_link_libraries(math-tools PRIVATE 
+    math_tools_core
+    isocline
+    project_warnings
+)
 
 # Testing
 option(BUILD_TESTING "Build tests" OFF)
