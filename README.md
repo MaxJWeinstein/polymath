@@ -1,4 +1,4 @@
-# Math Tools
+# Polymath
 
 This project is meant to provide a suite of computational tools at the command
 line. The primary goal of this suite of tools is to be fast and convenient to
@@ -25,12 +25,12 @@ that I won't finish all of these goals.
 
 ## Building
 
-I'm having some trouble getting the build system how I want it. Ideally, I'd
-learn how to use CMake, since I think it will make sense for maintaining
-project structure.
+This project uses CMake. I'm just learning how to use it, so there may be issues.
+I'm using `FetchContent` to include the `isocline` library. This makes the CLI
+experience much nicer.
 
-For now, `make` in the root creates object files in the `build` directory,
-and the executable is in root, named `mathtools`.
+Also, just note that the backend is meant to be its own library that gets used
+by the frontend.
 
 ## Specification/Design
 
@@ -52,59 +52,85 @@ a special value that throws an error if used.
 It's best to just write examples.
 
 ```
-$> func myFunc(x) = 1 + sqrt(x)
-myFunc(x) = 1 + sqrt(x)
+# Defining a polynomial
+math> poly f(x) = x^2 + 1
 
-$> let pi = 3.14
-pi = 3.14
-
-$> var t : R
-
-$> let A = sin(t/pi)
-
-$> poly f(x) = x^2 + 1
-f(x) = x^2 + 1
-
-$> f(1)
+# Calling a function (general or polynomial)
+math> f(1)
 2
 
-$> poly g(x) = x^2 + x
-g(x) = x^2 + x
+math> poly g(x) = x^2 + x
 
-$> f + g
+# Polynomial addition
+math> f + g
 2x^2 + x + 1
 
-$> poly h(y) = y^3-1
-h(y) = y^3 - 1
+math> poly h(y) = y^3-1
 
-$> f + h
+# Only looking to support polynomials of one variable, so the fact that h was defined
+# with a different independent variable doesn't matter
+math> f + h
 x^3 + x^2
 
-$> f*g
+# Polynomial multiplication
+math> f*g
 x^4 + x^3 + x^2 + x
 
-$> diff h
+# Differentiate polynomials. Note that h does "remember" that it was defined as h(y)
+math> diff h
 3y^2
 
-$> diff{3} h
+# Higher-degree derivatives
+math> diff{3} h
 6
 
-$> roots g
+# Root-finding. Will have to be approximated in many cases
+math> roots g
 -1
 0
 
-$> roots f
+# By default, consider complex roots
+math> roots f
 i
 -i
 
-$> factor g
+# Factoring polynomials
+math> factor g
 x(x + 1)
 
-$> factor f
+# Default to factoring over R[x]
+math> factor f
 x^2 + 1
 
-$> factor{C} f
+# Specify complex factorization
+math> factor{C} f
 (x - i)(x + i)
+
+# Defining a general function. Some functions like sqrt, sin, exp, etc. will be builtins
+math> func myFunc(x) = 1 + sqrt(x)
+
+# Differentiating a general function
+math> diff myFunc
+1/(2*sqrt(x))
+
+# Defining a constant. Constants like pi would be builtin.
+# Would be cool to treat them symbolically where possible, so that pi/pi is exactly 1, not just 1.00
+math> let pi = 3.14
+
+# Declaring a symbolic variable. Domains would be cool, but not necessary
+math> var t : R
+
+# Defining a symbolic variable based on another symbolic variable
+math> var A = sin(pi*t)
+
+# Testing an evaluation over a symbolic variable
+math> set t = 3/2
+t = 3/2
+A = -1
+
+# Solve (basic) symbolic equations
+math> solve{t} A = 1
+t = 0.5
 ```
 
 ## Notes
