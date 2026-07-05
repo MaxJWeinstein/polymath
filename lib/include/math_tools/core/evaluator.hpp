@@ -11,6 +11,15 @@
 
 #pragma once
 
-namespace math_tools::core {
-class Evaluator;
+#include <vector>
+
+#include "math_tools/core/lexer.hpp"
+
+namespace math_tools::core
+{
+    class Evaluator
+    {
+    public:
+        std::vector<Token> evaluate(std::vector<Token> tokens) { return tokens; }
+    };
 }

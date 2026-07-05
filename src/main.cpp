@@ -1,3 +1,3 @@
-#include "math-tools/app.hpp"
+#include "math_tools/repl.hpp"
 
-int main(int argc, char *argv[]) { return math_tools::run(argc, argv); }
+int main() { return math_tools::runRepl(); }
