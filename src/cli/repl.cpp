@@ -1,6 +1,6 @@
 /*
  * @file repl.cpp
- * @brief Read-Evaluate-Print-Loop for math-tools
+ * @brief Read-Evaluate-Print-Loop for polymath
  * @version 0.1
  * @date 2026-07-03
  *
@@ -8,17 +8,17 @@
  *
  */
 
-#include "math_tools/repl.hpp"
+#include "repl.hpp"
 
 #include <cstdlib>
 #include <iostream>
 #include <isocline.h>
 
-#include "math_tools/core/evaluator.hpp"
-#include "math_tools/core/lexer.hpp"
-#include "math_tools/core/parser.hpp"
+#include "polymath/core/evaluator.hpp"
+#include "polymath/core/lexer.hpp"
+#include "polymath/core/parser.hpp"
 
-namespace math_tools
+namespace polymath
 {
 
     namespace
@@ -79,7 +79,7 @@ namespace math_tools
         core::Evaluator evaluator;
 
         // TODO: use constant or macro for version number
-        std::cout << "math-tools 0.1.0 - type an expression, or 'exit'\n";
+        std::cout << "poly 0.1.0 - type an expression, or 'exit'\n";
 
         // REPL loop
         while (true)
@@ -120,4 +120,4 @@ namespace math_tools
         }
         return 0;
     }
-} // namespace math_tools
+} // namespace polymath

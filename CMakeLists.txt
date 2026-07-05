@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(math-tools
+project(polymath
     VERSION 0.1.0
     LANGUAGES CXX C
 )
@@ -34,16 +34,16 @@ FetchContent_Declare(
 set(IC_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(isocline)
 
-add_subdirectory(lib)  # math_tools_core
+add_subdirectory(lib)  # core
 
-add_executable(math-tools
+add_executable(polymath
     src/main.cpp
     src/cli/repl.cpp
 )
 
-target_include_directories(math-tools PRIVATE include)
-target_link_libraries(math-tools PRIVATE 
-    math_tools_core
+target_include_directories(polymath PRIVATE include)
+target_link_libraries(polymath PRIVATE 
+    polymath_core
     isocline
     project_warnings
 )

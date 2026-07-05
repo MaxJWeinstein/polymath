@@ -1,3 +1,3 @@
-#include "math_tools/repl.hpp"
+#include "repl.hpp"
 
-int main() { return math_tools::runRepl(); }
+int main() { return polymath::runRepl(); }

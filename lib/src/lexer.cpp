@@ -1,8 +1,8 @@
-#include "math_tools/core/lexer.hpp"
+#include "polymath/core/lexer.hpp"
 
 #include <cctype>
 
-namespace math_tools::core
+namespace polymath::core
 {
 
     namespace
@@ -151,4 +151,4 @@ namespace math_tools::core
             return "<Invalid TokenKind>";
         }
     }
-} // namespace math_tools::core
+} // namespace polymath::core

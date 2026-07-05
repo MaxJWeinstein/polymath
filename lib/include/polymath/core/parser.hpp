@@ -13,9 +13,9 @@
 
 #include <vector>
 
-#include "math_tools/core/lexer.hpp"
+#include "polymath/core/lexer.hpp"
 
-namespace math_tools::core
+namespace polymath::core
 {
     std::vector<Token> parse(std::vector<Token> tokens) { return tokens; }
 }

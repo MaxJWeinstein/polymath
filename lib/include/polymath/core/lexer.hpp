@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace math_tools::core
+namespace polymath::core
 {
 
     enum class TokenKind
@@ -44,9 +44,9 @@ namespace math_tools::core
 
     std::vector<Token> lex(const std::string &input) noexcept;
 
-} // namespace math_tools::core
+} // namespace polymath::core
 
-using namespace math_tools::core;
+using namespace polymath::core;
 static std::ostream &operator<<(std::ostream &os, const Token &token)
 {
     const char *kind = tokenKindToStr(token.kind);
