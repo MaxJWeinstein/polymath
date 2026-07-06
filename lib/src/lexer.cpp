@@ -18,6 +18,25 @@ namespace polymath::core
             return std::isalnum(static_cast<unsigned char>(c)) || c == '_';
         }
 
+        TokenKind structuralTokenFromChar(char c)
+        {
+            switch (c)
+            {
+            case '(':
+                return TokenKind::LParen;
+            case ')':
+                return TokenKind::RParen;
+            case '{':
+                return TokenKind::LCurly;
+            case '}':
+                return TokenKind::RCurly;
+            case ',':
+                return TokenKind::Comma;
+            default:
+                return TokenKind::Unknown;
+            }
+        }
+
     } // namespace
 
     std::vector<Token> lex(const std::string &input) noexcept
@@ -70,14 +89,6 @@ namespace polymath::core
                 continue;
             }
 
-            // --- Two-character operators ---
-            if ((c == '(') && (i + 1 < N) && (input[i + 1] == '='))
-            {
-                tokens.push_back({TokenKind::Operator, start, 2, input.substr(start, 2)});
-                i += 2;
-                continue;
-            }
-
             // --- Single-character operators ---
             bool isOp = false;
             switch (c)
@@ -97,28 +108,9 @@ namespace polymath::core
                 continue;
             }
 
-            // --- Structural tokens ---
-            if (c == '(')
-            {
-                tokens.push_back({TokenKind::LParen, start, 1, "("});
-                i++;
-                continue;
-            }
-            if (c == ')')
-            {
-                tokens.push_back({TokenKind::RParen, start, 1, ")"});
-                i++;
-                continue;
-            }
-            if (c == ',')
-            {
-                tokens.push_back({TokenKind::Comma, start, 1, ","});
-                i++;
-                continue;
-            }
-
-            // --- Unknown ---
-            tokens.push_back({TokenKind::Unknown, start, 1, std::string(1, c)});
+            // --- Structural tokens (and Unknown) ---
+            TokenKind kind = structuralTokenFromChar(c);
+            tokens.push_back({kind, start, 1, std::string(1, c)});
             i++;
         }
 
@@ -135,12 +127,16 @@ namespace polymath::core
             return "End";
         case TokenKind::Function:
             return "Function";
+        case TokenKind::LCurly:
+            return "LCurly";
         case TokenKind::LParen:
             return "LParen";
         case TokenKind::Number:
             return "Number";
         case TokenKind::Operator:
             return "Operator";
+        case TokenKind::RCurly:
+            return "RCurly";
         case TokenKind::RParen:
             return "RParen";
         case TokenKind::Symbol:

@@ -132,8 +132,3 @@ A = -1
 math> solve{t} A = 1
 t = 0.5
 ```
-
-## Notes
-
-I'm rethinking this project with heavy inspiration from a Cppcon23 talk on
-symbolic computation.

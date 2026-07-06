@@ -8,7 +8,7 @@
  *
  */
 
-#include "repl.hpp"
+#include "polymath/repl.hpp"
 
 #include <cstdlib>
 #include <iostream>

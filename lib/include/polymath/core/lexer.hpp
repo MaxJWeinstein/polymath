@@ -27,6 +27,8 @@ namespace polymath::core
         Operator, // Only recognized operators
         LParen,   //
         RParen,   //
+        LCurly,   // {
+        RCurly,   // }
         Comma,    //
         Unknown,  //
         End       // Sentinel to mark end of input
