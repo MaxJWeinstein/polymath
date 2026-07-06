@@ -34,6 +34,10 @@ FetchContent_Declare(
 set(IC_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(isocline)
 
+# Boost (set policy to use new, non-deprecated behavior and suppress warning)
+cmake_policy(SET CMP0167 NEW)
+find_package(Boost 1.80 REQUIRED)
+
 add_subdirectory(lib)  # core
 
 add_executable(polymath

@@ -3,7 +3,10 @@ add_library(polymath_core STATIC
     src/parser.cpp
     src/expr.cpp
     src/evaluator.cpp
+    src/rational.cpp
 )
+
+target_link_libraries(polymath_core PUBLIC Boost::boost)
 
 target_include_directories(polymath_core PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include

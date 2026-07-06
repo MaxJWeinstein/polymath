@@ -29,6 +29,8 @@ This project uses CMake. I'm just learning how to use it, so there may be issues
 I'm using `FetchContent` to include the `isocline` library. This makes the CLI
 experience much nicer.
 
+Also, you need Boost>=1.80 in order to build this project.
+
 Also, just note that the backend is meant to be its own library that gets used
 by the frontend.
 
